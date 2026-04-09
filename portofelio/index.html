@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Recruteur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-1"></div>
+  <div class="bg-shape bg-shape-2"></div>
+
+  <header class="hero">
+    <div class="hero-text">
+      <p class="tag">Disponible pour recrutement</p>
+      <h1>Mon Portfolio</h1>
+      <p class="intro">
+        Bonjour, je me présente je m'apelle enzo j'ai 24 ans je pratique me métier de developpeur web depuis 1 ans, je suis passionné par le développement web et je suis constamment à la recherche de nouvelles opportunités pour apprendre et grandir dans ce domaine. Je suis motivé, curieux et prêt à relever de nouveaux défis.
+      </p>
+    </div>
+
+    <figure class="profile-card">
+      <img class="profile-photo" src="img/photo profil.png" alt="Photo professionnelle" data-fallback="Ta photo" />
+      <figcaption>Photo professionnelle</figcaption>
+    </figure>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Mes Tests Et Mes Notes</h2>
+      <div class="tests-grid">
+        <article class="test-card">
+          <img src="img/diplome en html .png" alt="Capture du test 1" data-fallback="Photo test 1" />
+          <div class="test-note">
+            <h3>Test 1</h3>
+            <p>Note: <strong>76%</strong></p>
+          </div>
+        </article>
+
+        <article class="test-card">
+          <img src="img/diplome en css.png" alt="Capture du test 2" data-fallback="Photo test 2" />
+          <div class="test-note">
+            <h3>Test 2</h3>
+            <p>Note: <strong>72%</strong></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel competences">
+      <h2>Mes Compétences</h2>
+
+      <div class="dropdown" id="competencesDropdown">
+        <button class="dropdown-toggle" id="toggleBtn" aria-expanded="false" aria-controls="dropdownMenu">
+          Ouvrir Mes Compétences
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="dropdown-menu" id="dropdownMenu" role="menu" aria-hidden="true">
+          <button class="skill-btn" data-target="artisan" role="menuitem">artisant</button>
+          <button class="skill-btn" data-target="vitrine" role="menuitem">vitrine</button>
+        </div>
+      </div>
+
+      <div class="skills-output" id="skillsOutput" aria-live="polite">
+        Sélectionne une compétence pour afficher le détail.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Portfolio 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
