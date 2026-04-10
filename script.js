@@ -60,3 +60,108 @@ document.querySelectorAll("img[data-fallback]").forEach((img) => {
     img.replaceWith(wrapper);
   });
 });
+
+const modal = document.getElementById("imageModal");
+const modalBackdrop = document.getElementById("imageModalBackdrop");
+const modalPhoto = document.getElementById("imageModalPhoto");
+const modalCaption = document.getElementById("imageModalCaption");
+const modalClose = document.getElementById("imageModalClose");
+const modalPrev = document.getElementById("imageModalPrev");
+const modalNext = document.getElementById("imageModalNext");
+const zoomableImages = Array.from(document.querySelectorAll(".profile-photo, .test-card img"));
+
+let activeImageIndex = -1;
+
+function renderModalImage(index) {
+  const image = zoomableImages[index];
+  if (!image) {
+    return;
+  }
+
+  modalPhoto.src = image.currentSrc || image.src;
+  modalPhoto.alt = image.alt || "Photo agrandie";
+  modalCaption.textContent = image.alt || "Photo";
+}
+
+function openImageModal(index) {
+  if (!modal || !modalPhoto || !zoomableImages[index]) {
+    return;
+  }
+
+  activeImageIndex = index;
+  renderModalImage(activeImageIndex);
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeImageModal() {
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  modalPhoto.src = "";
+  document.body.style.overflow = "";
+  activeImageIndex = -1;
+}
+
+function showNextImage(step) {
+  if (!zoomableImages.length || activeImageIndex < 0) {
+    return;
+  }
+
+  activeImageIndex = (activeImageIndex + step + zoomableImages.length) % zoomableImages.length;
+  renderModalImage(activeImageIndex);
+}
+
+zoomableImages.forEach((image, index) => {
+  image.setAttribute("tabindex", "0");
+  image.setAttribute("role", "button");
+  image.setAttribute("aria-label", "Ouvrir l'image en grand");
+
+  image.addEventListener("click", () => openImageModal(index));
+  image.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openImageModal(index);
+    }
+  });
+});
+
+if (modalBackdrop) {
+  modalBackdrop.addEventListener("click", closeImageModal);
+}
+
+if (modalClose) {
+  modalClose.addEventListener("click", closeImageModal);
+}
+
+if (modalPrev) {
+  modalPrev.addEventListener("click", () => showNextImage(-1));
+}
+
+if (modalNext) {
+  modalNext.addEventListener("click", () => showNextImage(1));
+}
+
+document.addEventListener("keydown", (event) => {
+  if (!modal || !modal.classList.contains("open")) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    closeImageModal();
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    showNextImage(-1);
+    return;
+  }
+
+  if (event.key === "ArrowRight") {
+    showNextImage(1);
+  }
+});
